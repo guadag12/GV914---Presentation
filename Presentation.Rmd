@@ -1,0 +1,214 @@
+---
+title: "Understanding Ecological Inference Applications in Economic Voting:"
+
+subtitle: "The Emergency Family Income (IFE) Program in the 2021 Argentine Congress Election (with focus in the state of Buenos Aires)."  
+
+author: 
+  - "Guadalupe Gonzalez"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(fontawesome)
+library(tidyverse)
+library(knitr)
+style_duo_accent(
+  primary_color = "#274472",
+  secondary_color = "#41729F",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+class: inverse center middle
+
+## How do economic subsidies influence voters' choice of coalition government party? And how Ecological Inference can assist us in measuring this? 
+
+---
+
+class: center middle
+
+
+To mitigate the economic damage caused by the pandemic, the government establishes programmes like IFE, with the hope that will help to increase the number of votes cast in the 2021 election (Donato, 2021).
+
+ However, this might not result as the officialism expected, because it lost the election. To measure this, we will use **Ecological Inference Analysis**.
+
+---
+
+## What is Ecological Inference (EI)?
+
+
+Imagine that we have **aggregated data** (% obtain by a party in a polling station) and **individual data** (people of a certain race, gender, color). 
+
+How can we know which percentage of females vote from certain candidate? That is the kind of questions that EI answer.
+
+.left-column[
+
+$$\begin{equation} B^{ife} = \frac{\sum_{i=1}^{p} N_iX_iB_i^{ife}}{\sum_{i=1}^{p} N_iX_i} \end{equation}$$
+
+Where _X_ is the percentage of people that recieve IFE, _B^ife_ is the percentage of people that vote for the ruling party, _N_ is the number of people that vote. And _i_ refers to every pooling station. 
+
+]
+
+.right-column[
+
+```{r, echo=F}
+data <- data.frame("x" = c("Beneficiaries IFE", "No-Beneficiaries IFE", "Amount"),
+           "Vote for Ruling Party" = c("?", "?", "3,444,446" ),
+           "Vote for Opposition" = c("?", "?", "5,482,154" ),
+           "Amount" = c("3,220,358", "5,706,242", "")
+
+           )
+names(data)[2] <- "Vote for Ruling Party"
+names(data)[3] <- "Vote for Opposition"
+
+
+result <- data[-1]
+row.names(result) <- data$x
+
+
+result %>%
+ # rename(""=x, ""=x1) %>%
+   knitr::kable(format = "html", align=rep('c', 5), 
+                caption = "Table no.1: Cross table for EI")
+
+
+```
+
+
+]
+
+---
+
+class: middle 
+
+## Limitations of the study
+
+- It may be difficult to determine whether people vote for the parties' governments because of the programme. However, the question is **whether the programme increases your chances of voting for the party in power**.
+
+
+- To conduct this problem a survey must be conducted. 
+
+
+---
+
+### Data Available
+
+- Data with Income Family Emergency beneficiaries (table no.2.)
+
+- Results of polling station elections with IFE beneficiaries (table no.3.)
+
+
+```{r, echo=F}
+data <- data.frame("Security Number" = c("12345", "12346", "12348"),
+           "Gender" = c("F", "M", "M" ),
+           "Polling Station" = c("10204", "10204", "10205" ))
+
+data %>%
+   knitr::kable(format = "html", align=rep('c', 5), 
+                caption = "Table no.2: Beneficiaries of IFE")
+
+
+```
+
+<br>
+
+```{r, echo=F}
+data <- data.frame("Polling Station" = c("10204", "10205"),
+           "Vote_party_government" = c("135", "158"),
+           "Vote_party_2" = c("93", "95" ),
+           "Vote_party_3" = c("80", "60" ),
+           "Blank_vote" = c("4", "3" ),
+           "perc_oficial_party" = c("18.3", "19.3" ),
+            "Tournout" = c("312/350", "316/350")
+         )
+
+names(data)[1] <- "Polling Station"
+names(data)[2] <- "Votes Ruling Party"
+names(data)[3] <- "Votes Party 2"
+names(data)[4] <- "Votes Party 3"
+names(data)[5] <- "Blank Vote"
+names(data)[6] <- "% Ruling Party"
+
+data %>%
+   knitr::kable(format = "html", align=rep('c', 5),
+                 caption = "Table no.3: Results of the election")
+
+
+```
+
+
+- Might be necessary: A survey that ask about their vote preferences and the impact of the subsidy on their vote 
+
+
+---
+
+class: middle 
+
+## Hypothesis 
+
+
+1.  The inference ecology can helps us to measure the impact of the subsidy in vote in a **larger scale** than previous studies with surveys, in a more **cost-efficiently way**, and **provides greater granularity** to the analysis due to the spatial nature of the data.
+
+2. **Most people who received the IFE** (Emergency Family Income) subsidy in Argentina **did not vote for the ruling government party** in the 2021 presidential elections.  Non-support for the ruling party may be due to several factors, but why the subsidy seems not enough?
+
+---
+
+class: middle 
+
+
+## Main Argument
+
+The citizen that didn’t vote for the official party of government might developed 
+
+1. a **sense of justice** ( _"the state is settling a debt with me because I am a forgotten and relegated sector"_ );
+
+2. as well as **acquired rights** ( _"I earned this as a result of my effort, and it is good that the state recognises it"_ ) (Esping-Andersen, 1990; Brinks, Levitsky & Murillo, 2020).
+
+
+---
+
+## References
+
+
+Brinks, Levitsky, S., & Murillo, M. V. (2020). The politics of institutional weakness in Latin America (Brinks, S. Levitsky, & M. V. Murillo, Eds.). Cambridge University Press.
+
+Donato, Natalia  (2021). El Gobierno planea pagar un IFE de $15.000 en octubre para intentar revertir el resultado electoral. Available at: https://www.infobae.com/economia/2021/09/21/el-gobierno-planea-pagar-un-ife-de-15000-en-octubre-para-intentar-revertir-el-resultado-electoral/ (Accessed: 2 February 2023)
+
+Esping-Andersen. (1990). The three worlds of welfare capitalism. Princeton University Press.
+
+King, G. (1997) A solution to the ecological inference problem: reconstructing individual behavior from aggregate data. Princeton, NJ: Princeton University Press.
+
+Walsh, Poy, S., & Tunon, I. (2020). The Impact of Health Conditionalities in Conditional Cash Transfer Programmes: the case of the AUH in Argentina/El impacto de las condicionalidades de salud en los programas de transferencias condicionadas de dinero: el caso de la AUH en Argentina.(texto en ingles). Desarrollo y Sociedad, 85, 157–. https://doi.org/10.13043/DYS.85.4
+
+Zucco Jr. (2013). When Payouts Pay Off: Conditional Cash Transfers and Voting Behavior in Brazil 2002-10. American Journal of Political Science, 57(4), 810–822. https://doi.org/10.1111/ajps.12026
+
+
+---
+
+class: inverse center middle
+
+# Questions?
+
